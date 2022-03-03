@@ -14,7 +14,7 @@ export SBE_IP=192.168.26.89
 export KEY_NAME=markngykp
 export IMAGE_ID=s.ami-8144e2b13711e662b
 
-snowballEdge create-virtual-network-interface --physical-network-interface-id $PNIC_ID --ip-address-assignment STATIC --static-ip-address-configuration IpAddress=[$MSG_SVR_IP],NetMask=[$NETMASK] --profile $SBE_PROFILE
+snowballEdge create-virtual-network-interface --physical-network-interface-id $PNIC_ID --ip-address-assignment STATIC --static-ip-address-configuration IpAddress=$MSG_SVR_IP,NetMask=$NETMASK --profile $SBE_PROFILE
 
 export MSG_SVR_INSTANCE_ID=`aws ec2 run-instances --image-id $IMAGE_ID --count 1 --instance-type sbe-c.large --key-name $KEY_NAME --user-data file://MSG_SVR_userdata.txt --endpoint http://$SBE_IP:8008 --profile $SBE_PROFILE --region snow | grep InstanceId | awk -F '"' '{print $4}'`
 sleep 60
