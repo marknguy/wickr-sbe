@@ -19,8 +19,11 @@ export IMAGE_ID=s.ami-8144e2b13711e662b
 # create VNIs for all instances
 echo Creating VNIs...
 snowballEdge create-virtual-network-interface --physical-network-interface-id $PNIC_ID --ip-address-assignment STATIC --static-ip-address-configuration IpAddress=$MSG_SVR_IP,NetMask=$NETMASK --profile $SBE_PROFILE
+sleep 5
 snowballEdge create-virtual-network-interface --physical-network-interface-id $PNIC_ID --ip-address-assignment STATIC --static-ip-address-configuration IpAddress=$VV_SVR_IP,NetMask=$NETMASK --profile $SBE_PROFILE
+sleep 5
 snowballEdge create-virtual-network-interface --physical-network-interface-id $PNIC_ID --ip-address-assignment STATIC --static-ip-address-configuration IpAddress=$COMPLIANCE_SVR_IP,NetMask=$NETMASK --profile $SBE_PROFILE
+sleep 5
 
 # launch MSG Server instance
 echo launching Messaging server....
