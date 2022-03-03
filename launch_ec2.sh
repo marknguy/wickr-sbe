@@ -59,5 +59,5 @@ aws ec2 attach-volume --instance-id $COMPLIANCE_SVR_INSTANCE_ID --volume-id $COM
 aws ec2 attach-volume --instance-id $COMPLIANCE_SVR_INSTANCE_ID --volume-id $COMPLIANCE_SVR_VOLUME2 --device /dev/sdi --region snow --endpoint http://$SBE_IP:8008 --profile $SBE_PROFILE
 echo launch complete.
 echo please wait 3 minutes for yum updates and online install
-echo then go to http://$`MSG_SVR_IP:8800 to continue the setup
+echo then go to http://$MSG_SVR_IP:8800 to continue the setup
 echo note: select Continue anyway when there is a warning of not enough disk space
