@@ -3,4 +3,9 @@
 2. Configures the necessary volumes for each one
 3. Installs the appropriate Wickr software
 
-The user will have to go to the browswer and configure each server (http://<ip_address>:8800)
+### Instructions
+1. Download all files from this repo
+2. chmod +x launch_ec2.sh
+3. ./launch_ec2.sh
+
+The user will have to go to the browser to finish the setup (http://<ip_address>:8800)
