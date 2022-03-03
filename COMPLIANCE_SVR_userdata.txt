@@ -5,16 +5,30 @@ sudo sed -i 's/nameserver.*/nameserver 8.8.8.8/g' /etc/resolv.conf
 sudo sed -i '$ a interface "eth0" {supersede domain-name-servers 8.8.4.4, 8.8.8.8;}' /etc/dhcp/dhclient.conf 
 
 sudo mkfs -t xfs /dev/vda
+sudo mkfs -t xfs /dev/vdb
 
 sudo mkdir /var/lib/docker
+sudo mkdir /opt/WickrIO
 
 sudo mount /dev/vda /var/lib/docker
+sudo mount /dev/vdb /opt/WickrIO
 
 export VDA_UUID=`sudo blkid | grep vda | awk -F '"' '{print $2}'`
+export VDB_UUID=`sudo blkid | grep vdb | awk -F '"' '{print $2}'`
 
 sudo sed -i "$ a UUID=$VDA_UUID     /var/lib/docker xfs    defaults,nofail   0   2" /etc/fstab
+sudo sed -i "$ a UUID=$VDB_UUID     /opt/WickrIO xfs    defaults,nofail   0   2" /etc/fstab
 
 sudo echo wickr_compliance_svr > /etc/hostname
 
 sudo sed -i '$ a install_optional_items+=" grep "' /etc/dracut.conf.d/ec2.conf
 sudo yum update -y
+
+sudo amazon-linux-extras install docker -y 
+sudo service docker start
+sudo systemctl enable docker
+sudo usermod -aG docker ec2-user
+
+docker pull wickr/bot-enterprise:5.68.14.03
+
+docker run -v /opt/WickrIO:/opt/WickrIO -d --name wickr-compliance --restart=always -ti wickr/bot-enterprise:5.68.14.03
