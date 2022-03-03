@@ -57,3 +57,4 @@ aws ec2 attach-volume --instance-id $COMPLIANCE_SVR_INSTANCE_ID --volume-id $COM
 echo launch complete.
 echo please wait 3 minutes for yum updates and online install
 echo then go to http://$`MSG_SVR_IP:8800 to continue the setup
+echo note: select Continue anyway when there is a warning of not enough disk space
