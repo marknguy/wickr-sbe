@@ -5,7 +5,7 @@
 
 ### Instructions
 1. Download all files from this repo
-2. chmod +x launch_ec2.sh
-3. ./launch_ec2.sh
+2. `chmod +x launch_ec2.sh`
+3. `./launch_ec2.sh`
 
 The user will have to go to the browser to finish the setup (http://<ip_address>:8800)
