@@ -50,10 +50,13 @@ export COMPLIANCE_SVR_INSTANCE_ID=`aws ec2 run-instances --image-id $IMAGE_ID --
 sleep 40
 aws ec2 associate-address --instance-id $COMPLIANCE_SVR_INSTANCE_ID --public-ip $COMPLIANCE_SVR_IP --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow
 echo creating volume.....
-export COMPLIANCE_SVR_VOLUME=`aws ec2 create-volume --availability-zone snow --volume-type "sbp1" --size 500 --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow | grep VolumeId | awk -F '"' '{print $4}'`
+export COMPLIANCE_SVR_VOLUME1=`aws ec2 create-volume --availability-zone snow --volume-type "sbp1" --size 500 --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow | grep VolumeId | awk -F '"' '{print $4}'`
 sleep 20
-echo attaching volume....
-aws ec2 attach-volume --instance-id $COMPLIANCE_SVR_INSTANCE_ID --volume-id $COMPLIANCE_SVR_VOLUME --device /dev/sdh --region snow --endpoint http://$SBE_IP:8008 --profile $SBE_PROFILE
+export COMPLIANCE_SVR_VOLUME2=`aws ec2 create-volume --availability-zone snow --volume-type "sbp1" --size 500 --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow | grep VolumeId | awk -F '"' '{print $4}'`
+sleep 20
+echo attaching volumes....
+aws ec2 attach-volume --instance-id $COMPLIANCE_SVR_INSTANCE_ID --volume-id $COMPLIANCE_SVR_VOLUME1 --device /dev/sdh --region snow --endpoint http://$SBE_IP:8008 --profile $SBE_PROFILE
+aws ec2 attach-volume --instance-id $COMPLIANCE_SVR_INSTANCE_ID --volume-id $COMPLIANCE_SVR_VOLUME2 --device /dev/sdi --region snow --endpoint http://$SBE_IP:8008 --profile $SBE_PROFILE
 echo launch complete.
 echo please wait 3 minutes for yum updates and online install
 echo then go to http://$`MSG_SVR_IP:8800 to continue the setup
