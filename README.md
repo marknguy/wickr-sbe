@@ -4,10 +4,8 @@
 ![Architectural Overview](SBEWickrFederationConcept.drawio.png)
 (drawing by Troy Barker)
 
-## This repo does the following:
-1. Launches three EC2 instances. One for the Messaging server, one for the Voice and Video server, and one for the Compliance server
-2. Configures the necessary volumes for each one
-3. Installs the Wickr messaging server, voice & video server, and compliance server
+Wickr has developed the industry’s most secure, end-to-end encrypted, communication technology. With Wickr, customers and partners benefit from advanced security features not available with traditional communications services – across messaging, voice and video calling, file sharing, and collaboration. This gives security conscious enterprises and government agencies the ability to implement important governance and security controls to help them meet their compliance requirements.
+This repo will deploy the Wickr Messaging, Voice and Video, and Compliance servers on a Snowball Edge.
 
 ### Instructions
 1. Download all files from this repo
