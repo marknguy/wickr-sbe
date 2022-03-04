@@ -16,6 +16,13 @@ export SBE_IP=192.168.26.89
 export KEY_NAME=markngykp
 export IMAGE_ID=s.ami-8144e2b13711e662b
 
+# create shared token used to install servers
+export DAEMON_TOKEN=`openssl rand -base64 32`
+
+# edit userdata of Messaging server file to add token
+sed -i -r "s|ReplaceToken|$DAEMON_TOKEN|g" MSG_SVR_userdata.txt
+sed -i -r "s|ReplaceToken|$DAEMON_TOKEN|g" VV_SVR_userdata.txt
+
 # create VNIs for all instances
 echo Creating VNIs...
 snowballEdge create-virtual-network-interface --physical-network-interface-id $PNIC_ID --ip-address-assignment STATIC --static-ip-address-configuration IpAddress=$MSG_SVR_IP,NetMask=$NETMASK --profile $SBE_PROFILE
@@ -31,10 +38,15 @@ export MSG_SVR_INSTANCE_ID=`aws ec2 run-instances --image-id $IMAGE_ID --count 1
 sleep 40
 aws ec2 associate-address --instance-id $MSG_SVR_INSTANCE_ID --public-ip $MSG_SVR_IP --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow
 echo creating volume.....
+export MSG_SVR_PRIVATE_IP=`aws ec2 describe-instances --instance-id $MSG_SVR_INSTANCE_ID --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow | grep PriviateIpAddress | awk -F '"' '{print $4}'`
 export MSG_SVR_VOLUME=`aws ec2 create-volume --availability-zone snow --volume-type "sbp1" --size 500 --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow | grep VolumeId | awk -F '"' '{print $4}'`
 sleep 20
 echo attaching volume....
 aws ec2 attach-volume --instance-id $MSG_SVR_INSTANCE_ID --volume-id $MSG_SVR_VOLUME --device /dev/sdh --region snow --endpoint http://$SBE_IP:8008 --profile $SBE_PROFILE
+
+# edit userdata of VoiceVideo server file to add token and IP
+sed -i -r "s|ReplaceToken|$DAEMON_TOKEN|g" VV_SVR_userdata.txt
+sed -i -r "s|ReplaceIp|$MSG_SVR_PRIVATE_IP|g" VV_SVR_userdata.txt
 
 # launch Voice Video Server instance
 echo launching Voice Video server....
