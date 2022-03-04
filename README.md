@@ -1,4 +1,8 @@
-## This script will get you started with Wickr on SBE
+## Deploying Wickr on Snowball Edge
+
+## Architectural Overview
+![Architectural Overview](wickr-arch.png)
+
 1. Launches three EC2 instances. One for the Messaging server, one for the Voice and Video server, and one for the Compliance server
 2. Configures the necessary volumes for each one
 3. Installs the appropriate Wickr software
