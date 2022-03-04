@@ -19,6 +19,9 @@ sudo echo wickr_msg_svr > /etc/hostname
 sudo sed -i '$ a install_optional_items+=" grep "' /etc/dracut.conf.d/ec2.conf
 sudo yum update -y
 
+export JSON="{"DaemonToken": "ReplaceToken"}"
+sudo echo $JSON > /etc/replicated.conf
+
 curl -sSL -o /root/install.sh https://get.replicated.com/docker/wickrenterprise/stable
 
 sudo bash /root/install.sh
