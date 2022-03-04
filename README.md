@@ -15,4 +15,4 @@
 3. `chmod +x launch_ec2.sh`
 4. `./launch_ec2.sh`
 
-The user will have to go to the browser to finish the setup (http://<ip_address>:8800)
+Once the servers have been deployed, the user will have to go to the browser to finish the setup (http://<ip_address>:8800)
