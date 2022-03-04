@@ -1,11 +1,13 @@
 # Deploying Wickr on Snowball Edge
 
-## Conceptual Federated Architectural
+## Conceptual Federated Architecture
 ![Architectural Overview](SBEWickrFederationConcept.drawio.png)
+(drawing by Troy Barker)
 
+## This repo does the following:
 1. Launches three EC2 instances. One for the Messaging server, one for the Voice and Video server, and one for the Compliance server
 2. Configures the necessary volumes for each one
-3. Installs the appropriate Wickr software
+3. Installs the Wickr messaging server, voice & video server, and compliance server
 
 ### Instructions
 1. Download all files from this repo
