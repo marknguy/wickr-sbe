@@ -19,3 +19,10 @@ sudo echo wickr_vv_svr > /etc/hostname
 sudo sed -i '$ a install_optional_items+=" grep "' /etc/dracut.conf.d/ec2.conf
 sudo yum update -y
 
+echo VoiceVideoPrivateIP=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
+echo VoiceVideoPublicIP=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
+
+sudo sed -i '$ a install_optional_items+=" grep "' /etc/dracut.conf.d/ec2.conf
+sudo yum update -y
+
+curl -sSL https://get.replicated.com/operator/wickrenterprise/stable | sudo DEBIAN_FRONTEND=noninteractive bash -s no-proxy daemon-endpoint=ReplaceIp:9879 daemon-token="ReplaceToken" private-address=$VoiceVideoPrivateIP public-address=$VoiceVideoPublicIP tags=calling
