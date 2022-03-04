@@ -38,7 +38,7 @@ export MSG_SVR_INSTANCE_ID=`aws ec2 run-instances --image-id $IMAGE_ID --count 1
 sleep 40
 aws ec2 associate-address --instance-id $MSG_SVR_INSTANCE_ID --public-ip $MSG_SVR_IP --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow
 echo creating volume.....
-export MSG_SVR_PRIVATE_IP=`aws ec2 describe-instances --instance-id $MSG_SVR_INSTANCE_ID --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow | grep PriviateIpAddress | awk -F '"' '{print $4}'`
+export MSG_SVR_PRIVATE_IP=`aws ec2 describe-instances --instance-id $MSG_SVR_INSTANCE_ID --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow | grep PrivateIpAddress | awk -F '"' '{print $4}'`
 export MSG_SVR_VOLUME=`aws ec2 create-volume --availability-zone snow --volume-type "sbp1" --size 500 --profile $SBE_PROFILE --endpoint http://$SBE_IP:8008 --region snow | grep VolumeId | awk -F '"' '{print $4}'`
 sleep 20
 echo attaching volume....
