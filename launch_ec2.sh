@@ -19,7 +19,7 @@ export IMAGE_ID=s.ami-8144e2b13711e662b
 # create shared token used to install servers
 export DAEMON_TOKEN=`openssl rand -base64 32`
 
-# edit userdata of Messaging server file to add token
+# edit userdata to add token
 sed -i -r "s|ReplaceToken|$DAEMON_TOKEN|g" MSG_SVR_userdata.txt
 sed -i -r "s|ReplaceToken|$DAEMON_TOKEN|g" VV_SVR_userdata.txt
 
@@ -44,8 +44,7 @@ sleep 20
 echo attaching volume....
 aws ec2 attach-volume --instance-id $MSG_SVR_INSTANCE_ID --volume-id $MSG_SVR_VOLUME --device /dev/sdh --region snow --endpoint http://$SBE_IP:8008 --profile $SBE_PROFILE
 
-# edit userdata of VoiceVideo server file to add token and IP
-sed -i -r "s|ReplaceToken|$DAEMON_TOKEN|g" VV_SVR_userdata.txt
+# edit userdata of VoiceVideo server file to add IP
 sed -i -r "s|ReplaceIp|$MSG_SVR_PRIVATE_IP|g" VV_SVR_userdata.txt
 
 # launch Voice Video Server instance
