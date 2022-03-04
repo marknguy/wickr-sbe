@@ -13,4 +13,4 @@ This repo will deploy the Wickr Messaging, Voice and Video, and Compliance serve
 3. `chmod +x launch_ec2.sh`
 4. `./launch_ec2.sh`
 
-Once the servers have been deployed, the user will have to go to the browser to finish the setup (http://<ip_address>:8800)
+Once the servers have been deployed, the user will have to go to the browser to finish the setup (http://<messaging_server_ip_address>:8800)
