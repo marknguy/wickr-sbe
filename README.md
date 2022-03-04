@@ -1,6 +1,6 @@
-## Deploying Wickr on Snowball Edge
+# Deploying Wickr on Snowball Edge
 
-## Architectural Overview
+## Conceptual Federated Architectural
 ![Architectural Overview](SBEWickrFederationConcept.drawio.png)
 
 1. Launches three EC2 instances. One for the Messaging server, one for the Voice and Video server, and one for the Compliance server
